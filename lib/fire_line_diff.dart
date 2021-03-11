@@ -14,7 +14,7 @@ class ItemResult<LeftItem, RightItem> {
 class FireLineDiff<LeftItem, RightItem> {
   static List<ItemResult<LeftType, RightType>> diff<LeftType, RightType>(
       List<LeftType> leftItems, List<RightType> rightItems) {
-    final commonSeq = longestCommonSubstring(
+    final commonSeq = _longestCommonSubstring(
         leftItems.map((e) => e.toString().split('')).toList(growable: false),
         rightItems.map((e) => e.toString().split('')).toList(growable: false));
     final startBefore = commonSeq.startString1;
@@ -74,9 +74,9 @@ class FireLineDiff<LeftItem, RightItem> {
     return map;
   }
 
-  static CommonSubstring longestCommonSubstring(
+  static _CommonSubstring _longestCommonSubstring(
       List<Object> seq1, List<Object> seq2) {
-    final result = CommonSubstring(startString1: 0, startString2: 0, length: 0);
+    final result = _CommonSubstring(startString1: 0, startString2: 0, length: 0);
     final indexMapBefore = _indexMap(seq1);
     var previousOverlap = <int, int>{};
 
@@ -117,10 +117,10 @@ class FireLineDiff<LeftItem, RightItem> {
   }
 }
 
-class CommonSubstring {
+class _CommonSubstring {
   int startString1;
   int startString2;
   int length;
 
-  CommonSubstring({this.startString1, this.startString2, this.length});
+  _CommonSubstring({this.startString1, this.startString2, this.length});
 }

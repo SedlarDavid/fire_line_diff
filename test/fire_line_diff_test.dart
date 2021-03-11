@@ -1,5 +1,5 @@
 import 'package:fire_line_diff/fire_line_diff.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 class _A {
   final double _i;
