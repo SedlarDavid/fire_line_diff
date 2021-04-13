@@ -1,11 +1,12 @@
 name: fire_line_diff
 description: A dart line diff tool.
-version: 1.0.0
+version: 1.5.0
+repository: https://github.com/SedlarDavid/fire_line_diff
 homepage:
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=2.0.0"
 
 dev_dependencies:
-  test: ^1.15.7
+  test: ^1.16.8

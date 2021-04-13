@@ -12,7 +12,7 @@ class ItemResult<LeftItem, RightItem> {
 }
 
 class FireLineDiff<LeftItem, RightItem> {
-  static List<ItemResult<LeftType, RightType>> diff<LeftType, RightType>(
+  static List<ItemResult<LeftType?, RightType?>> diff<LeftType, RightType>(
       List<LeftType> leftItems, List<RightType> rightItems) {
     final commonSeq = _longestCommonSubstring(
         leftItems.map((e) => e.toString().split('')).toList(growable: false),
@@ -20,9 +20,9 @@ class FireLineDiff<LeftItem, RightItem> {
     final startBefore = commonSeq.startString1;
     final startAfter = commonSeq.startString2;
     if (commonSeq.length == 0) {
-      final Iterable<ItemResult<LeftType, RightType>> result =
+      final Iterable<ItemResult<LeftType, RightType?>> result =
           leftItems.map((each) {
-        return ItemResult<LeftType, RightType>(
+        return ItemResult<LeftType, RightType?>(
           each,
           null,
           state: LineDiffState.negative,
@@ -31,7 +31,7 @@ class FireLineDiff<LeftItem, RightItem> {
       return [
         ...result,
         ...rightItems.map((each) {
-          return ItemResult<LeftType, RightType>(null, each,
+          return ItemResult<LeftType?, RightType>(null, each,
               state: LineDiffState.positive);
         }).toList(growable: false)
       ];
@@ -40,12 +40,12 @@ class FireLineDiff<LeftItem, RightItem> {
     final beforeLeft = leftItems.sublist(0, startBefore);
     final afterLeft = rightItems.sublist(0, startAfter);
     final equal2 =
-        leftItems.sublist(startBefore, startBefore + commonSeq.length);
+        leftItems.sublist(startBefore!, startBefore + commonSeq.length!);
     final List<ItemResult<LeftType, RightType>> equal =
         <ItemResult<LeftType, RightType>>[];
 
     final _sublist =
-        rightItems.sublist(startAfter, startAfter + commonSeq.length);
+        rightItems.sublist(startAfter!, startAfter + commonSeq.length!);
     for (var i = 0; i < _sublist.length; ++i) {
       final each = _sublist[i];
       equal.add(ItemResult<LeftType, RightType>(
@@ -55,8 +55,8 @@ class FireLineDiff<LeftItem, RightItem> {
       ));
     }
 
-    final beforeRight = leftItems.sublist(startBefore + commonSeq.length);
-    final afterRight = rightItems.sublist(startAfter + commonSeq.length);
+    final beforeRight = leftItems.sublist(startBefore + commonSeq.length!);
+    final afterRight = rightItems.sublist(startAfter + commonSeq.length!);
     return [
       ...diff(beforeLeft, afterLeft),
       ...equal,
@@ -69,14 +69,15 @@ class FireLineDiff<LeftItem, RightItem> {
     for (var i = 0; i < list.length; ++i) {
       final each = _typeToString(list[i]);
       map[each] = map[each] ?? [];
-      map[each].add(i);
+      map[each]!.add(i);
     }
     return map;
   }
 
   static _CommonSubstring _longestCommonSubstring(
       List<Object> seq1, List<Object> seq2) {
-    final result = _CommonSubstring(startString1: 0, startString2: 0, length: 0);
+    final result =
+        _CommonSubstring(startString1: 0, startString2: 0, length: 0);
     final indexMapBefore = _indexMap(seq1);
     var previousOverlap = <int, int>{};
 
@@ -91,12 +92,12 @@ class FireLineDiff<LeftItem, RightItem> {
         overlapLength =
             ((indexBefore != 0 && (indexBefore - 1) < previousOverlap.length)
                     ? previousOverlap[indexBefore - 1]
-                    : 0) +
+                    : 0)! +
                 1;
         if (overlapLength > result.length) {
           result.length = overlapLength;
-          result.startString1 = indexBefore - overlapLength + 1;
-          result.startString2 = indexAfter - overlapLength + 1;
+          result.startString1 = indexBefore - overlapLength + 1 as int?;
+          result.startString2 = indexAfter - overlapLength + 1 as int?;
         }
         overlap[indexBefore] = overlapLength;
       });
@@ -118,9 +119,9 @@ class FireLineDiff<LeftItem, RightItem> {
 }
 
 class _CommonSubstring {
-  int startString1;
-  int startString2;
-  int length;
+  int? startString1;
+  int? startString2;
+  int? length;
 
   _CommonSubstring({this.startString1, this.startString2, this.length});
 }
