@@ -50,7 +50,10 @@ void main() {
         'class InvalidRepoException implements GitException {'
       ];
 
-      FireLineDiff.diff(a, b);
+      // Should not throw exception anymore
+      final result = FireLineDiff.diff(a, b);
+
+      expect(result.length, equals(5));
     });
   });
 }
