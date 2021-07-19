@@ -36,5 +36,21 @@ void main() {
       expect(result[3].left, equals(left[2]));
       expect(result[3].right, equals(right[2]));
     });
+
+    test('LCS test', () {
+      var a = [
+        'class GitException implements Exception {}',
+        '',
+        'class GitNotFound implements GitException {}',
+      ];
+
+      var b = [
+        'class GitNotFound implements GitException {}',
+        '',
+        'class InvalidRepoException implements GitException {'
+      ];
+
+      FireLineDiff.diff(a, b);
+    });
   });
 }

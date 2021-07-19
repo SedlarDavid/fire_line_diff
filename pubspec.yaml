@@ -1,6 +1,6 @@
 name: fire_line_diff
 description: A dart line diff tool.
-version: 1.5.0
+version: 1.5.1
 repository: https://github.com/SedlarDavid/fire_line_diff
 homepage:
 

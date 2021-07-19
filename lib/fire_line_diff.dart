@@ -21,7 +21,7 @@ class FireLineDiff<LeftItem, RightItem> {
     final startAfter = commonSeq.startString2;
     if (commonSeq.length == 0) {
       final Iterable<ItemResult<LeftType, RightType?>> result =
-          leftItems.map((each) {
+      leftItems.map((each) {
         return ItemResult<LeftType, RightType?>(
           each,
           null,
@@ -40,12 +40,12 @@ class FireLineDiff<LeftItem, RightItem> {
     final beforeLeft = leftItems.sublist(0, startBefore);
     final afterLeft = rightItems.sublist(0, startAfter);
     final equal2 =
-        leftItems.sublist(startBefore!, startBefore + commonSeq.length!);
+    leftItems.sublist(startBefore!, startBefore + commonSeq.length!);
     final List<ItemResult<LeftType, RightType>> equal =
-        <ItemResult<LeftType, RightType>>[];
+    <ItemResult<LeftType, RightType>>[];
 
     final _sublist =
-        rightItems.sublist(startAfter!, startAfter + commonSeq.length!);
+    rightItems.sublist(startAfter!, startAfter + commonSeq.length!);
     for (var i = 0; i < _sublist.length; ++i) {
       final each = _sublist[i];
       equal.add(ItemResult<LeftType, RightType>(
@@ -77,7 +77,7 @@ class FireLineDiff<LeftItem, RightItem> {
   static _CommonSubstring _longestCommonSubstring(
       List<Object> seq1, List<Object> seq2) {
     final result =
-        _CommonSubstring(startString1: 0, startString2: 0, length: 0);
+    _CommonSubstring(startString1: 0, startString2: 0, length: 0);
     final indexMapBefore = _indexMap(seq1);
     var previousOverlap = <int, int>{};
 
@@ -90,9 +90,10 @@ class FireLineDiff<LeftItem, RightItem> {
       var indexesBefore = indexMapBefore[eachAfter] ?? <int>[];
       indexesBefore.forEach((indexBefore) {
         overlapLength =
-            ((indexBefore != 0 && (indexBefore - 1) < previousOverlap.length)
-                    ? previousOverlap[indexBefore - 1]
-                    : 0)! +
+            (((indexBefore != 0 && (indexBefore - 1) < previousOverlap.length)
+                ? previousOverlap[indexBefore - 1]
+                : 0) ??
+                0) +
                 1;
         if (overlapLength > result.length) {
           result.length = overlapLength;
