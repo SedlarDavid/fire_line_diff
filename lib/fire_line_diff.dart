@@ -110,8 +110,8 @@ class FireLineDiff<LeftItem, RightItem> {
                 1;
         if (overlapLength > (result.length ?? 0)) {
           result.length = overlapLength;
-          result.startString1 = indexBefore - overlapLength + 1 as int?;
-          result.startString2 = indexAfter - overlapLength + 1 as int?;
+          result.startString1 = indexBefore - overlapLength + 1;
+          result.startString2 = indexAfter - overlapLength + 1;
         }
         overlap[indexBefore] = overlapLength;
       });
