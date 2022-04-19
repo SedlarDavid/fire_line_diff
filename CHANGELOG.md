@@ -1,3 +1,7 @@
+## [1.5.4] - 2022-04-19
+
+* Simple documentation, example added, pub.dev points increase
+
 ## [1.5.3] - 2021-07-19
 
 * LCS Test fixed
