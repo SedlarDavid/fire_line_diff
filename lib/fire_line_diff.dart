@@ -1,7 +1,12 @@
 library fire_line_diff;
 
+/// Enum that reflects changes of items
+/// [positive] - items were added
+/// [negative] - items were removed
+/// [neutral] - no changes
 enum LineDiffState { positive, neutral, negative }
 
+/// Class containing result [LineDiffState] and compared items
 class ItemResult<LeftItem, RightItem> {
   final LineDiffState state;
 
@@ -11,7 +16,14 @@ class ItemResult<LeftItem, RightItem> {
   const ItemResult(this.left, this.right, {this.state = LineDiffState.neutral});
 }
 
+/// Main class containing methods responsible for diff handling
+///
+/// use [FireLineDiff.diff(leftItems, rightItems)]
 class FireLineDiff<LeftItem, RightItem> {
+  /// Method comparing two objects by converting them into strings
+  /// These strings are compared line by line and
+  ///
+  /// [ItemResult] contains diff state and compared items
   static List<ItemResult<LeftType?, RightType?>> diff<LeftType, RightType>(
       List<LeftType> leftItems, List<RightType> rightItems) {
     final commonSeq = _longestCommonSubstring(
@@ -74,6 +86,7 @@ class FireLineDiff<LeftItem, RightItem> {
     return map;
   }
 
+  /// Helper function to find longest LCS
   static _CommonSubstring _longestCommonSubstring(
       List<Object> seq1, List<Object> seq2) {
     final result =
@@ -108,6 +121,9 @@ class FireLineDiff<LeftItem, RightItem> {
     return result;
   }
 
+  /// Type converting function
+  ///
+  /// !!! Needs to be edited when handling various different types !!!
   static String _typeToString(dynamic type) {
     if (type is List) {
       return (type).map((e) => _typeToString(e)).join('');
@@ -119,6 +135,7 @@ class FireLineDiff<LeftItem, RightItem> {
   }
 }
 
+/// Helper class to hold common substring
 class _CommonSubstring {
   int? startString1;
   int? startString2;
